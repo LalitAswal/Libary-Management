@@ -6,7 +6,7 @@ import cookieParser from 'cookie-parser';
 
 
 // routes
-import userRoutes from '../src/routes/user.routes';
+import userRoutes from './routes/user.routes';
 
 
 

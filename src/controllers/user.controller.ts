@@ -1,9 +1,8 @@
 import { Request, Response } from "express";
 
-import UserService from "../services/user.service";
+import {userService} from "../bootstrap/user.bootstrap";
 
 export default class UserController {
-  constructor(private readonly userService: UserService) {}
 
   registration = async (req: Request, res: Response): Promise<void> => {
     try {
@@ -13,7 +12,7 @@ export default class UserController {
         throw new Error("Incorrect Details");
       }
 
-      await this.userService.register(userName, password, email);
+      await userService.register(userName, password, email);
 
       res.status(200).json({
         message: "User Register Successfully",
@@ -42,7 +41,7 @@ export default class UserController {
       }
 
       // Service should return tokens, not user
-      const { accessToken, refreshToken } = await this.userService.login(
+      const { accessToken, refreshToken } = await userService.login(
         userName,
         password,
       );
@@ -84,7 +83,7 @@ export default class UserController {
     try {
       const refreshToken = req.cookies.refreshToken;  
 
-      const result = await this.userService.signOut(refreshToken);
+      const result = await userService.signOut(refreshToken);
 
       if (result) { 
         res.clearCookie("accessToken");

@@ -56,7 +56,7 @@ export default class UserService {
   }
   ;
 
-  signOut = async (token: string) => {
+  signOut = async (token: string) :Promise<boolean> => {
   try {
     if (!token) {
       throw new Error('Token is required');
@@ -69,7 +69,7 @@ export default class UserService {
     
     const decoded = jwt.verify(token, refreshSecret) as { id: string };
     const result = await userRepository.removeToken(decoded.id);
-    return result;
+    return true
     
   } catch (error: unknown) {
     if (error instanceof Error) {

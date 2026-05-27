@@ -6,6 +6,6 @@ import UserRepository from "../repositories/user.repository";
 
 export const userService = new UserService();
 
-export const userController = new UserController(userService);
+export const userController = new UserController();
 
 export const userRepository = new UserRepository();
